@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Identity1.Models.ViewModel.UsersViewModel> 
+<!--or go to (_ViewImports.cs) and add (@*@using*@ Identity1.Models.ViewModel)-->
+@* OR : @model IEnumerable<UsersViewModel>*@
+
+<table class="table">
+		<thead>
+			<tr>
+				<th>@Html.DisplayNameFor(model => model.UserName)</th>
+				<th>@Html.DisplayNameFor(model => model.Email)</th>
+				<th>@Html.DisplayNameFor(model => model.Phone)</th>
+				<th>@Html.DisplayNameFor(model => model.City)</th>
+				<th>@Html.DisplayNameFor(model => model.Roles)</th>
+				<th>operations</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		@foreach(var user in Model)
+		{
+			<tr>
+				<td>@user.UserName.Split("@")[0]</td> <!-- وبعد at عشان اعرض بس الاسم والغي من ال , sub[0] لذلك لازم تكون  array رح احولها الى -->
+				<td>@user.Email</td>
+				<td>@user.Phone</td>
+				<td>@user.City</td>
+				<td>
+					@string.Join(", ",user.Roles) <!--( , )بعرف كل واحد من الثاني , لانه بينهم  , user لكل Roles لعرض ال-->
+
+
+					@* OR :
+					@foreach(var role in @user.Roles)  //IEnumerable رح تلاحظ انه  UsersViewModel ارجع ل
+					{
+						<span>@role</span>
+					}
+					*@
+				</td>
+
+				<td>
+					@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+					{
+						<a asp-controller="Accounts" asp-action="EditUserRole" asp-route-id="@user.Id">Change Role</a>
+					}
+
+				</td>
+			</tr>
+		}
+		</tbody>
+</table>
+

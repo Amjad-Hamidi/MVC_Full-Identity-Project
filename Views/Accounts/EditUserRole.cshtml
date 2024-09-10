@@ -1,0 +1,40 @@
+﻿@model Identity1.Models.ViewModel.EditUserRoleViewModel
+
+@{
+    ViewData["Title"] = "EditUserRole";
+}
+
+<h1>EditUserRole</h1>
+
+<h4>EditUserRoleViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditUserRole" asp-controller="Accounts" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" type="hidden" />
+                <!--
+                <label asp-for="Id" class="form-control"></label>
+				<span asp-validation-for="Id" class="text-danger"></span>
+                -->
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedRoles" class="control-label"></label>
+                <select asp-for="SelectedRoles" class="form-control" asp-items="Model.RolesList">
+                    <!-- asp-items : SelectedRoles وتحطها في  option وظيفتها تجيب القيم من -->
+                    <option value="">---select a role---</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
